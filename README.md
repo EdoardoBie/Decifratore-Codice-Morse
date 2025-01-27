@@ -16,4 +16,4 @@ di leggere un segnale Morse per poi tradurlo in valori alfanumerici, ovvero risa
 
 Immagine con le traduzioni del codice morse dalle singole lettere ai simboli usati per comunicare
 
-![Immagine Codici Morse](https://github.com/EdoardoBie/Decifratore-Codice-Morse/tree/main/Morse_code.jpg"Codici Morse")
+![Immagine Codici Morse](https://github.com/EdoardoBie/Decifratore-Codice-Morse/blob/main/Morse_code.jpg "Codici Morse")
