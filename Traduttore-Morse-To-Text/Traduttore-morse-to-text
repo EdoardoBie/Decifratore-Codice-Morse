@@ -1,0 +1,45 @@
+const int inputPin = 5;
+const float TRESHOLD = 0.500;
+float pallino = 1.000;
+const float LINEA = pallino * 3;
+
+float startTime = 0.0;
+float releaseTime = 0.0;
+bool lastState = LOW;
+
+void setup() {
+  pinMode(inputPin, INPUT);
+  Serial.begin(19200);
+}
+
+void loop() {
+  bool currentState = digitalRead(inputPin);
+
+  if (lastState == LOW && currentState == HIGH) {
+    startTime = millis();
+    if (releaseTime > 0) {
+      float gap = (startTime - releaseTime) / 1000;
+      if (gap > (1 - TRESHOLD) && gap < (1 + TRESHOLD)) {
+        Serial.println("SP");
+      } else if (gap > (7 - TRESHOLD)) {
+        Serial.println("SG");
+      }
+    }
+  }
+
+  if (lastState == HIGH && currentState == LOW) {
+    float endTime = millis();
+    float durata = (endTime - startTime) / 1000;
+
+    Serial.println(durata);
+    if (durata > (pallino - TRESHOLD) && durata < (pallino + TRESHOLD)) {
+      Serial.println(".");
+    } else if (durata > (LINEA - TRESHOLD) && durata < (LINEA + TRESHOLD)) {
+      Serial.println("_");
+    }
+
+    releaseTime = endTime;
+  }
+
+  lastState = currentState;
+}
