@@ -1,10 +1,19 @@
-int outputPin = 7;
-int durataPunto = 300;
+const int outputPin = 10;
+const int durataPunto = 300;
+bool buzzer = false;
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
   pinMode(outputPin, OUTPUT);
+  Serial.println("Buzzer (b) o LED (l):");
+  while(Serial.available() == 0){
+
+  }
+  String scelta = Serial.readString();
+  if(scelta == 'b'){
+    buzzer = true;
+  }
 }
 
 void loop() {
@@ -135,15 +144,30 @@ void trasmettiTesto(String trasmissione){
   }
 }
 void punto(){
+  if(buzzer){
+    tone(outputPin, 1000);
+    delay(durataPunto);
+    noTone(outputPin);
+  }
+  else{
   digitalWrite(outputPin, HIGH);
   delay(durataPunto);
   digitalWrite(outputPin, LOW);
+  }
+  
 }
 
 void linea(){
+  if(buzzer){
+    tone(outputPin, 1000);
+    delay(durataPunto);
+    noTone(outputPin);
+  }
+  else{
   digitalWrite(outputPin, HIGH);
   delay(durataPunto*3);
   digitalWrite(outputPin, LOW);
+  }
 }
 
 void A(){
